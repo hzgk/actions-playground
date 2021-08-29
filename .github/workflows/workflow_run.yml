@@ -1,0 +1,28 @@
+name: pr_run
+
+on:
+  workflow_run:
+    workflows:
+      - "pr"
+    types:
+      - requested
+      - completed
+
+jobs:
+  comment:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v4
+        with:
+          script: |
+            console.log(context)
+
+      - uses: actions/github-script@v4
+        with:
+          script: |
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: 'Triggered `workflow_run` :tada:'
+            })

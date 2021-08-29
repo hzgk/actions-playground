@@ -1,0 +1,13 @@
+name: pr
+
+on:
+  pull_request: {}
+
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: View context attributes
+        uses: actions/github-script@v4
+        with:
+          script: console.log(context)
